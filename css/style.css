@@ -791,7 +791,6 @@
         .location-controls h2 {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -902,7 +901,6 @@
         .hospital-list h2 {
             font-size: 1.5rem;
             margin-bottom: 1.5rem;
-            color: var(--primary);
             display: flex;
             align-items: center;
             gap: 0.5rem;
@@ -951,7 +949,7 @@
         .hospital-specialty {
             display: inline-block;
             padding: 0.3rem 0.8rem;
-            background-color: var(--primary-light);
+            background-color: var(--success);
             color: var(--surface);
             border-radius: 20px;
             font-size: 0.8rem;

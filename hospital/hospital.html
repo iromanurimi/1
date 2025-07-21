@@ -112,10 +112,11 @@
     <div class="locator-container" data-aos="fade-up">
         <!-- Location Controls -->
         <div class="location-controls ">
-            <h2><i class="fas fa-search-location iconic"></i> Nemo Asibiti</h2>
+
+            <h2><i class="fas fa-search-location iconic"></i> Nemo Asibiti Mafi Kusa</h2>
             
             <div class="form-group">
-                <label for="state">Jiha</label>
+                <label for="state">Jiha (State)</label>
                 <select id="state" name="state">
                     <option value="">Zaɓi Jiha</option>
                     <option value="adamawa">Adamawa</option>
@@ -142,25 +143,33 @@
             </div>
             
             <div class="form-group">
-                <label for="city">Birni</label>
+                <label for="city">Karamr Hukuma (LGA)</label>
                 <select id="city" name="city" disabled>
-                    <option value="">Zaɓi Birni</option>
+                    <option value="">Zaɓi Karamar Hukuma</option>
                 </select>
             </div>
+
+           
             
             <div class="form-group">
-                <label for="specialty">Nau'in Asibiti</label>
+                <label for="specialty">Nau'in Asibiti (Type Of Hosp.)</label>
                 <select id="specialty" name="specialty">
-                    <option value="">Duka Asibitoci</option>
-                    <option value="maternity">Asibitocin Mata masu Ciki</option>
-                    <option value="pediatric">Asibitocin Yara</option>
-                    <option value="general">Asibitoci na Gabaɗaya</option>
+                    <option value="">Duka Asibitoci (All Hosp.)</option>
+                    <option value="maternity"> Asibitin Masu Ciki (Maternity)</option>
+                    <option value="pediatric">Asibitin Yara (Pediatric)</option>
+                    <option value="ophthalmology">Asibitin Ido (Eye)</option>
+                    <option value="orthopedic">Asibitin Kashi (Orthopedic)</option>
+                    <option value="psychiatric">Asibitin Masu Tabin Hankali (Psychiatric)</option>
+                    <option value="teaching">Asibitin Koyarwa (Teaching Hosp.)</option>
+                    <option value="general">Asibitin Bai Daya (General Hosp.)</option>
+                    <option value="specialist">Asibitin Kwararru (Specialist Hosp.)</option>
+                    <option value="pharmacy">Wuraren Sai Da Magani (Pharmacy)</option>
                 </select>
             </div>
             
             <div class="detect-location" id="detect-location">
                 <i class="fas fa-location-arrow"></i>
-                <span>Gano Wurin Ku ta atomatik</span>
+                <span>Gano Inda Kake (Find My Location)</span>
             </div>
             
             <button class="search-btn" id="search-btn" disabled>
@@ -441,6 +450,13 @@
             "Mubi North", "Mubi South", "Numan", "Shelleng", "Song", 
             "Toungo", "Yola North", "Yola South"
           ],
+          katsina: [
+            "Bakori", "Batagarawa", "Batsari", "Baure", "Bindawa", "Charanchi", "Dan Musa",
+            "Dandume", "Danja", "Daura", "Dutsi", "Dutsin-ma", "Faskari",
+            "Funtua", "Ingawa", "Jibia", "Kafur", "Kaita", 
+            "Kankara", "Kankia", "Kurfi", "Katsina", "Kusada", "Mai'Adua", "Malumfashi", "Mani", "Mashi", "Matazu", "Musawa",
+            "Rimi", "Sabuwa", "Safana", "Sandamu", "Zango"
+          ],
           taraba: [
             "Ardo Kola", "Bali", "Donga", "Gashaka", "Gassol", "Ibi", "Jalingo",
             "Karim Lamido", "Kurmi", "Lau", "Sardauna", "Takum", "Ussa", "Wukari", "Yorro", "Zing"
@@ -470,7 +486,7 @@
             const state = this.value;
             
             // Reset city select
-            citySelect.innerHTML = '<option value="">Zaɓi Birni</option>';
+            citySelect.innerHTML = '<option value="">Zaɓi Karamar Hukuma</option>';
             citySelect.disabled = !state;
             searchBtn.disabled = true;
             
@@ -500,14 +516,14 @@
         // Detect location handler (FIXED VERSION)
         detectLocationBtn.addEventListener('click', function() {
             // Show loading state
-            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Ana gano wurin ku...';
+            this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Jira! Ana gano inda kuke...';
             this.classList.add('loading');
             this.disabled = true;
             
             navigator.geolocation.getCurrentPosition(
                 function(position) {
                     // Restore button state
-                    detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Gano Wurin Ku';
+                    detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Gano Inda Kuke';
                     detectLocationBtn.classList.remove('loading');
                     detectLocationBtn.disabled = false;
                     
@@ -524,7 +540,7 @@
                         icon: userIcon,
                         title: "Your Location" 
                     }).addTo(map)
-                      .bindPopup("Wurin ku")
+                      .bindPopup("Inda kuke (Your Location)")
                       .openPopup();
                     
                     // Center map on user's location with zoom
@@ -538,23 +554,23 @@
                 },
                 function(error) {
                     // Restore button state
-                    detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Gano Wurin Ku';
+                    detectLocationBtn.innerHTML = '<i class="fas fa-location-arrow"></i> Sake Gano Inda Kuke';
                     detectLocationBtn.classList.remove('loading');
                     detectLocationBtn.disabled = false;
                     
                     let errorMessage;
                     switch(error.code) {
                         case error.PERMISSION_DENIED:
-                            errorMessage = "Kun ƙi ba da izinin gano wuri. Da fatan za a shigar da shi da hannu.";
+                            errorMessage = "Ba ku bada izinin gano inda kuke ba. Da fatan za a shigar da shi da hannu.";
                             break;
                         case error.POSITION_UNAVAILABLE:
-                            errorMessage = "Bayanin wuri ba ya samuwa.";
+                            errorMessage = "Bayanin inda kuke ba ya samuwa a halin yanzu.";
                             break;
                         case error.TIMEOUT:
-                            errorMessage = "An kasa gano wurin ku cikin lokaci.";
+                            errorMessage = "An kasa gano inda kuke a cikin lokaci.";
                             break;
                         default:
-                            errorMessage = "An sami kuskure yayin gano wuri.";
+                            errorMessage = "An sami kuskure yayin gano inda kuke.";
                     }
                     alert(errorMessage);
                 },
@@ -635,17 +651,23 @@
                         userLatLng.lat, userLatLng.lng,
                         hospital.lat, hospital.lng
                     );
-                    distanceText = `${distance.toFixed(1)}km daga ku`;
+                    distanceText = `Akwai nisan ${distance.toFixed(1)}km daga inda kuke`;
                 } else {
                     distanceText = 'A cikin birni';
                 }
                 
                 // Get specialty text
                 const specialtyText = {
-                    'maternity': 'Asibitin Mata masu Ciki',
-                    'pediatric': 'Asibitin Yara',
-                    'general': 'Asibitin Gabaɗaya',
-                    'teaching': 'Asibitin Koyarwa'
+                    'maternity': 'Asibitin Masu Ciki (Maternity)',
+                    'pediatric': 'Asibitin Yara (Pediatric)',
+                    'general': 'Asibitin Bai ɗaya (General)',
+                    'orthopedic': 'Asibitin Kashi (Orthopedic)',
+                    'ophthalmology': 'Asibitin Ido (Eye Hosp.)',
+                    'clinic': 'Karamin Asibiti (Clinic)',
+                    'psychiatric': 'Asibitin Masu Tabin Hankali (Psychiatric)',
+                    'pharmacy': 'Wajen Sai Da Magani (Pharmacy)',
+                    'specialist': 'Asibitin Kwararru (Specialist Hosp.)',
+                    'teaching': 'Asibitin Koyarwa (Teaching Hosp.)'
                 }[hospital.type] || hospital.type;
                 
                 html += `
